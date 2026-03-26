@@ -3,9 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Our Products</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body{
+            font-family: 'DM Sans', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header{
+            display: flex;
+            justify-content: flex-start;
+            gap: 50px;
+            padding: 10px;
+        }
+
+        .header a{
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .willifly{
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            max-width: 1100px;
+            margin: 0 auto;
+            gap: 2%;
+            padding: 20px;
+        }
+
+        .willifly-text{
+            max-width: 1000px;
+        }
+
+        h1{
+            white-space: nowrap;
+            font-size: 48px;
+        }
+
+        p{
+            font-size: 18px;
+        }
+
+        hr{
+            width: 100%;
+            border: none;
+            border-top: 1px solid #000000;
+        }
+    </style>
 </head>
 <body>
-    
+    <script src = "app.js"></script>
+
+    <div class = "header">
+        <a href="index.html">Lumino</a>
+    </div>
+
+    <div class = "willifly">
+        <h1>Will I Fly</h1>
+        <div class = "willifly-text">
+            <p><b>Will I Fly predicts flight delays using weather data and past airport trends.</b></p>
+            <p>Lumino is working hard to bring Will I Fly to life. We want it to be perfect before it reaches you.</p>
+        </div>
+        <hr>
+    </div>
 </body>
 </html>
