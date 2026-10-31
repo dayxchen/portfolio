@@ -41,6 +41,9 @@ export const projects = [
     title: 'Will I Fly',
     date: 'Aug 2026',
     kind: 'ML + web app',
+    // A short silent teaser. It plays once when the card scrolls into view and rests on its last frame (the poster).
+    video: asset('projects/will-i-fly-teaser.mp4'),
+    poster: asset('projects/will-i-fly-teaser.jpg'),
     description:
       'A machine learning model that predicts whether a domestic flight will arrive late, using historical on-time records and weather data.',
     points: [
