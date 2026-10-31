@@ -11,7 +11,7 @@ export const profile = {
 }
 
 export const links = {
-  email: 'typhlooni@gmail.com',
+  email: 'davinatcollege@gmail.com',
   github: 'https://github.com/dayxchen',
   linkedin: 'https://www.linkedin.com/in/davin-chen-508594399/',
 }
@@ -21,8 +21,9 @@ export const projects = [
     title: 'Flight Passport',
     date: 'Sep 2026',
     kind: 'Web app',
-    // To show a screenshot, put it in public/projects/ and uncomment:
-    // image: asset('projects/flight-passport.png'),
+    // A short silent teaser. It plays once when the card scrolls into view and rests on its last frame (the poster).
+    video: asset('projects/flight-passport-teaser.mp4'),
+    poster: asset('projects/flight-passport-teaser.jpg'),
     description:
       'A travel log for every flight you have taken. Add past flights, watch your routes light up on an interactive 3D globe, and attach photos from each trip.',
     points: [
