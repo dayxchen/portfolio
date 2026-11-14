@@ -6,6 +6,8 @@ import Projects from './components/Projects.jsx'
 import About from './components/About.jsx'
 import Footer from './components/Footer.jsx'
 import ResumeModal from './components/ResumeModal.jsx'
+import Clouds from './components/Clouds.jsx'
+import FlightJourney from './components/FlightJourney.jsx'
 
 export default function App() {
   const [resumeOpen, setResumeOpen] = useState(false)
@@ -25,14 +27,18 @@ export default function App() {
       <div className="backdrop" aria-hidden="true">
         <span className="blob blob-a" />
         <span className="blob blob-b" />
+        <Clouds />
       </div>
-      <Nav onOpenResume={openResume} />
-      <main>
-        <Hero onOpenResume={openResume} />
-        <Projects />
-        <About />
-      </main>
-      <Footer onOpenResume={openResume} />
+      <div className="page">
+        <FlightJourney />
+        <Nav onOpenResume={openResume} />
+        <main>
+          <Hero onOpenResume={openResume} />
+          <Projects />
+          <About />
+        </main>
+        <Footer onOpenResume={openResume} />
+      </div>
       <ResumeModal open={resumeOpen} onClose={closeResume} />
     </>
   )

@@ -93,6 +93,105 @@ button {
   background: #ffd9c2;
 }
 
+/* Scroll journey: clouds drift in the sky, a plane flies the page */
+.cloud {
+  position: absolute;
+  top: 0;
+  will-change: transform;
+}
+
+.cloud svg {
+  display: block;
+}
+
+.page {
+  position: relative;
+}
+
+.journey {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.journey svg {
+  display: block;
+}
+
+.journey-route {
+  fill: none;
+  stroke: var(--accent);
+  stroke-opacity: 0.35;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 0.5 9;
+}
+
+.journey-flown {
+  stroke-opacity: 0.8;
+  stroke-width: 2.5;
+}
+
+.journey-mask {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 24;
+  stroke-dasharray: 0 999999;
+}
+
+.journey-plane,
+.journey-dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.journey-plane {
+  display: inline-flex;
+  color: var(--accent-strong);
+  opacity: var(--takeoff, 0);
+  will-change: transform;
+}
+
+.journey-dot {
+  width: 10px;
+  height: 10px;
+  margin: -5px 0 0 -5px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.journey-dot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  opacity: 0;
+}
+
+.journey-dot.is-landed::after {
+  animation: landed 1.1s var(--ease-out);
+}
+
+@keyframes landed {
+  from {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(3.4);
+  }
+}
+
+/* The hero plane hands off to the journey plane as you start scrolling */
+.arc-plane svg {
+  opacity: calc(1 - var(--takeoff, 0));
+}
+
 /* Shared bits */
 .glass {
   background: var(--glass);
@@ -796,6 +895,10 @@ button {
   .about-text {
     padding: 20px;
   }
+
+  .cloud-wide {
+    display: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -813,5 +916,10 @@ button {
   .reveal {
     opacity: 1;
     transform: none;
+  }
+
+  .journey-plane,
+  .journey-flown {
+    display: none;
   }
 }

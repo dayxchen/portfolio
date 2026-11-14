@@ -1,0 +1,70 @@
+<!doctype html>
+<!-- Source for public/og-image.png (the LinkedIn / social link preview).
+     Re-render with: npm run og -->
+<html>
+<head>
+<meta charset="utf-8" />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700;9..40,800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body {
+    position: relative;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    color: #3a1f2d;
+    background: linear-gradient(160deg, #fff0f5 0%, #fde4e4 55%, #fff6ee 100%);
+    -webkit-font-smoothing: antialiased;
+  }
+  .blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: .6; }
+  .blob-a { width: 560px; height: 560px; top: -220px; right: -140px; background: #f6c1c7; }
+  .blob-b { width: 480px; height: 480px; bottom: -240px; left: -160px; background: #ffd9c2; }
+
+  .left { position: absolute; left: 80px; top: 0; bottom: 0; width: 560px;
+          display: flex; flex-direction: column; justify-content: center; }
+  .hello { font-size: 30px; font-weight: 500; color: #a8535b; margin-bottom: 6px; }
+  h1 { font-size: 104px; font-weight: 800; letter-spacing: -0.04em; line-height: .95; }
+  .tag { margin-top: 26px; font-size: 30px; line-height: 1.3; color: #7a5566; max-width: 520px; }
+  .tag b { color: #3a1f2d; font-weight: 700; }
+  .url { margin-top: 40px; display: inline-flex; align-items: center; gap: 12px;
+         align-self: flex-start; padding: 12px 20px; border-radius: 999px;
+         background: #c4737a; color: #fff; font-family: 'JetBrains Mono', monospace;
+         font-size: 20px; font-weight: 500; box-shadow: 0 10px 24px rgba(168,83,91,.28); }
+
+  .shots { position: absolute; right: 0; top: 0; width: 560px; height: 630px; }
+  .shot { position: absolute; width: 440px; border-radius: 18px; overflow: hidden;
+          border: 6px solid rgba(255,255,255,.9);
+          box-shadow: 0 24px 50px rgba(122,60,80,.22); }
+  .shot img { display: block; width: 100%; }
+  .shot-1 { right: 70px; top: 92px; transform: rotate(4deg); }
+  .shot-2 { right: 150px; top: 318px; transform: rotate(-5deg); }
+
+  .arc { position: absolute; left: 520px; top: 40px; }
+  .arc path { fill: none; stroke: #c4737a; stroke-opacity: .6; stroke-width: 3;
+              stroke-linecap: round; stroke-dasharray: .5 12; }
+  .plane { position: absolute; left: 836px; top: 32px; color: #a8535b; transform: rotate(-14deg); }
+</style>
+</head>
+<body>
+  <div class="blob blob-a"></div>
+  <div class="blob blob-b"></div>
+
+  <svg class="arc" width="340" height="120" viewBox="0 0 340 120">
+    <path d="M 8 112 C 90 30, 220 8, 318 22" />
+  </svg>
+  <svg class="plane" viewBox="0 0 24 24" width="38" height="38" fill="currentColor">
+    <path d="M22 12c0-.9-.8-1.5-1.7-1.5H15L10 3H8l2.6 7.5H5.5L4 8.5H2.5l1 3.5-1 3.5H4l1.5-2h5.1L8 21h2l5-7.5h5.3c.9 0 1.7-.6 1.7-1.5z" />
+  </svg>
+
+  <div class="left">
+    <p class="hello">hi, I'm</p>
+    <h1>Davin Chen</h1>
+    <p class="tag">Cognitive Science student building <b>clean, intuitive software</b>.</p>
+    <span class="url">dayxchen.github.io/portfolio →</span>
+  </div>
+
+  <div class="shots">
+    <div class="shot shot-1"><img src="../public/projects/flight-passport-teaser.jpg" alt="" /></div>
+    <div class="shot shot-2"><img src="../public/projects/will-i-fly-teaser.jpg" alt="" /></div>
+  </div>
+</body>
+</html>
