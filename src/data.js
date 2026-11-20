@@ -74,9 +74,9 @@ export const about = {
   ],
   // Placeholder interests: swap these for your own.
   interests: [
-    { emoji: '✈️', label: 'Travel & flights' },
-    { emoji: '🧠', label: 'How people think' },
-    { emoji: '🎨', label: 'UI & UX design' },
-    { emoji: '🤖', label: 'Machine learning' },
+    'Travel & flights',
+    'How people think',
+    'UI & UX design',
+    'Machine learning',
   ],
 }

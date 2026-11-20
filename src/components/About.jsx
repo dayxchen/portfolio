@@ -14,11 +14,7 @@ export default function About() {
         {about.paragraphs.map((p) => <p key={p}>{p}</p>)}
         <h3>Things I'm into</h3>
         <ul className="interests">
-          {about.interests.map((i) => (
-            <li key={i.label}>
-              <span aria-hidden="true">{i.emoji}</span> {i.label}
-            </li>
-          ))}
+          {about.interests.map((i) => <li key={i}>{i}</li>)}
         </ul>
       </Reveal>
     </section>

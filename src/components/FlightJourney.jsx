@@ -23,14 +23,37 @@ function offsetIn(el, page) {
   return { x, y }
 }
 
-// Smooth S-curves with vertical tangents, so y only ever increases.
-function buildPath(points) {
-  let d = `M ${points[0].x} ${points[0].y}`
-  for (let i = 1; i < points.length; i++) {
-    const a = points[i - 1]
-    const b = points[i]
-    const k = (b.y - a.y) * 0.55
-    d += ` C ${a.x} ${a.y + k}, ${b.x} ${b.y - k}, ${b.x} ${b.y}`
+const DOWN = { x: 0, y: 1 }
+const unit = (x, y) => {
+  const l = Math.hypot(x, y) || 1
+  return { x: x / l, y: y / l }
+}
+
+// Cubic curves between nodes, each leaving and arriving along its node's
+// tangent `t`, so the route bends smoothly through every node. Handles are
+// shortened to keep the curve on screen and so y only ever increases.
+function buildPath(nodes, W) {
+  const lo = W * 0.02
+  const hi = W * 0.98
+  const reach = (p, dx, h) => {
+    if (dx > 0) return Math.max(0, Math.min(h, (hi - p.x) / dx))
+    if (dx < 0) return Math.max(0, Math.min(h, (lo - p.x) / dx))
+    return h
+  }
+  let d = `M ${nodes[0].x} ${nodes[0].y}`
+  for (let i = 1; i < nodes.length; i++) {
+    const a = nodes[i - 1]
+    const b = nodes[i]
+    const h = Math.hypot(b.x - a.x, b.y - a.y) * 0.39
+    let ha = reach(a, a.t.x, h)
+    let hb = reach(b, -b.t.x, h)
+    const used = a.t.y * ha + b.t.y * hb
+    const room = (b.y - a.y) * 0.9
+    if (used > room) {
+      ha *= room / used
+      hb *= room / used
+    }
+    d += ` C ${a.x + a.t.x * ha} ${a.y + a.t.y * ha}, ${b.x - b.t.x * hb} ${b.y - b.t.y * hb}, ${b.x} ${b.y}`
   }
   return d
 }
@@ -67,34 +90,53 @@ export default function FlightJourney() {
           ? { x: arcEnd.left + arcEnd.width / 2 - pageRect.left, y: arcEnd.top + arcEnd.height / 2 - pageRect.top }
           : { x: W * 0.93, y: offsetIn(hero, page).y + hero.offsetHeight - 150 } // beside the buttons, clear of the text
 
-      // Fly down the side gutters and only cross the page in the empty space
-      // just above each section, so the route stays clear of the text.
-      // Then swing in and land just above the contact ticket.
+      // Fly down the side gutters and only cross the page in the empty band
+      // between sections, banking through wide turns at each end so the route
+      // stays clear of the text. Then swing in and land on the contact ticket.
       const narrow = W < 560
-      const above = narrow ? 110 : 180 // crossing starts this far above a section
-      const below = narrow ? 30 : 40 // ...and ends before its label row
       const gutter = { left: W * 0.07, right: W * 0.93 }
-      const lean = W * 0.03 // gutter runs lean inward a little so they aren't ruler-straight
-      const points = [start]
-      let side = 'right'
-      const push = (x, y) => {
-        if (y > points[points.length - 1].y + 1) points.push({ x, y })
+      const lean = W * 0.03 // long gutter runs bow inward a little so they aren't ruler-straight
+      const R = narrow ? W * 0.1 : Math.min(150, W * 0.11) // turn radius into and out of a crossing
+      const band = narrow ? 20 : 30 // a crossing descends from `band` above a section's top to `band` below
+      const nodes = [{ ...start, t: DOWN }]
+      const last = () => nodes[nodes.length - 1]
+      const add = (x, y, t = DOWN) => {
+        if (y > last().y + 1) nodes.push({ x, y, t })
       }
+      // Run down the gutter on `from`, then turn inward to start a crossing at y.
+      const enter = (from, y) => {
+        const x = gutter[from]
+        const dir = from === 'left' ? 1 : -1
+        const prev = last()
+        if (Math.abs(prev.x - x) < 1 && y - R - prev.y > 4 * R) add(x + dir * lean, (prev.y + y - R) / 2)
+        if (y - R - last().y > R * 0.75) add(x, y - R)
+        return { x: x + dir * R, y }
+      }
+      let side = 'right'
       ;['#projects', '#about'].forEach((sel) => {
         const el = page.querySelector(sel)
         if (!el) return
         const top = offsetIn(el, page).y
-        push(gutter[side] + (side === 'left' ? lean : -lean), top - above)
-        side = side === 'left' ? 'right' : 'left'
-        push(gutter[side], top + below)
+        const to = side === 'left' ? 'right' : 'left'
+        const a = enter(side, top - band)
+        const b = { x: gutter[to] + (to === 'left' ? R : -R), y: top + band }
+        const u = unit(b.x - a.x, b.y - a.y)
+        add(a.x, a.y, u)
+        add(b.x, b.y, u)
+        add(gutter[to], b.y + R)
+        side = to
       })
-      const contact = page.querySelector('#contact')
-      if (contact) push(gutter[side] + (side === 'left' ? lean : -lean), offsetIn(contact, page).y - above * 0.7)
       const t = offsetIn(ticket, page)
       const end = { x: t.x + ticket.offsetWidth / 2, y: t.y - 14 }
-      points.push(end)
+      const contact = page.querySelector('#contact')
+      if (contact) {
+        const a = enter(side, offsetIn(contact, page).y - band)
+        add(a.x, a.y, unit(end.x - a.x, end.y - a.y))
+      }
+      // Come in on a slanted approach rather than dropping straight down.
+      nodes.push({ ...end, t: unit(Math.sign(end.x - last().x) * 0.8, 1) })
 
-      const d = buildPath(points)
+      const d = buildPath(nodes, W)
       const svg = svgRef.current
       svg.setAttribute('width', W)
       svg.setAttribute('height', H)
