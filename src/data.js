@@ -18,6 +18,23 @@ export const links = {
 
 export const projects = [
   {
+    title: 'Crave',
+    date: 'Nov 2026',
+    kind: 'Web app',
+    // A short silent teaser. It plays once when the card scrolls into view and rests on its last frame (the poster).
+    video: asset('projects/crave-teaser.mp4'),
+    poster: asset('projects/crave-teaser.jpg'),
+    description:
+      "A group restaurant picker. Start a group, friends join with a 4-digit code, and everyone swipes on nearby places. When everyone likes the same spot, it's a match.",
+    points: [
+      'Live group sessions over Socket.IO, so joins, progress, nudges and votes update for everyone at once',
+      'Swipe cards with drag physics, flick detection and a details sheet, designed mobile-first from Figma',
+      'Built the React frontend with a teammate on the backend, tested end to end with Playwright',
+    ],
+    tags: ['React', 'TypeScript', 'Vite', 'Socket.IO', 'Playwright'],
+    links: [{ label: 'Code', href: 'https://github.com/colby-okazaki/crave' }],
+  },
+  {
     title: 'Flight Passport',
     date: 'Sep 2026',
     kind: 'Web app',
