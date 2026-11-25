@@ -516,8 +516,8 @@ button {
 .grid {
   margin-top: 32px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
-  gap: 22px;
+  grid-template-columns: 1fr;
+  gap: 32px;
 }
 
 .grid-item {
@@ -609,6 +609,25 @@ button {
   padding: 24px 24px 22px;
 }
 
+/* Wide screens: media on the left, details on the right */
+@media (min-width: 820px) {
+  .card .ticket-main {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    align-items: center;
+  }
+
+  .card .card-image {
+    margin: 20px 0 20px 20px;
+    border-radius: calc(var(--radius) - 6px);
+    border: 1px solid var(--line);
+  }
+
+  .card .card-body {
+    padding: 26px 28px 24px;
+  }
+}
+
 .card h3 {
   font-size: 22px;
   font-weight: 800;
@@ -638,6 +657,11 @@ button {
 .card p {
   margin-top: 14px;
   font-size: 15px;
+  max-width: 68ch;
+}
+
+.card .points {
+  max-width: 68ch;
 }
 
 .points {
@@ -866,6 +890,192 @@ button {
   }
 }
 
+/* Project details page (crave/index.html) */
+.card-links .card-details {
+  color: var(--text);
+}
+
+.cs-hero {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 48px 24px 24px;
+}
+
+.cs-back {
+  display: inline-flex;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-soft);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.cs-back span {
+  transition: transform 0.2s var(--ease-out);
+}
+
+.cs-back:hover {
+  color: var(--accent-strong);
+}
+
+.cs-back:hover span {
+  transform: translateX(-3px);
+}
+
+.cs-title {
+  margin-top: 28px;
+  font-size: clamp(48px, 9vw, 88px);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1;
+}
+
+.cs-lede {
+  margin-top: 20px;
+  max-width: 640px;
+  font-size: clamp(17px, 2.2vw, 20px);
+  color: var(--text-soft);
+}
+
+.cs-ticket {
+  margin-top: 36px;
+}
+
+.cs-facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  gap: 18px 28px;
+  padding: 24px 28px;
+}
+
+.cs-facts dt {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
+
+.cs-facts dd {
+  margin-top: 2px;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.cs-stub {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+  padding: 18px 28px 20px;
+}
+
+.cs-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.cs-links .btn span {
+  display: inline-block;
+  transition: transform 0.2s var(--ease-out);
+}
+
+.cs-links .btn:hover span {
+  transform: translateX(3px);
+}
+
+.cs-note {
+  flex: 1 1 260px;
+  font-size: 13px;
+  color: var(--text-soft);
+}
+
+.cs-media {
+  margin-top: 28px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-hover);
+}
+
+.cs-media .card-image {
+  border-radius: 0;
+  border-bottom: 0;
+}
+
+.cs-section {
+  padding-top: 56px;
+  padding-bottom: 24px;
+}
+
+.cs-panel {
+  margin-top: 28px;
+  padding: 28px 32px;
+}
+
+.cs-steps,
+.cs-leads {
+  display: grid;
+  gap: 14px;
+  max-width: 76ch;
+  padding-left: 22px;
+  font-size: 16px;
+}
+
+.cs-steps li::marker {
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--accent-strong);
+}
+
+.cs-steps li {
+  padding-left: 6px;
+}
+
+.cs-leads li::marker {
+  color: var(--accent);
+}
+
+.cs-leads strong {
+  font-weight: 700;
+}
+
+.cs-team {
+  margin-top: 22px;
+  padding-top: 20px;
+  max-width: 76ch;
+  border-top: 2px dashed rgba(58, 31, 45, 0.12);
+  font-size: 15px;
+  color: var(--text-soft);
+}
+
+.cs-grid {
+  margin-top: 28px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr));
+  gap: 18px;
+}
+
+.cs-choice {
+  padding: 24px 26px;
+}
+
+.cs-choice h3 {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+
+.cs-choice p {
+  margin-top: 8px;
+  font-size: 15px;
+  color: var(--text-soft);
+}
+
 /* Small screens */
 @media (max-width: 900px) {
   .flight-arc {
@@ -892,8 +1102,20 @@ button {
   }
 
   .card-body,
-  .about-text {
+  .about-text,
+  .cs-panel,
+  .cs-choice {
     padding: 20px;
+  }
+
+  .cs-hero {
+    padding: 32px 16px 16px;
+  }
+
+  .cs-facts,
+  .cs-stub {
+    padding-left: 20px;
+    padding-right: 20px;
   }
 
   .cloud-wide {

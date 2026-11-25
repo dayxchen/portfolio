@@ -3,11 +3,11 @@ import { GitHubIcon, LinkedInIcon, MailIcon, FileIcon } from './Icons.jsx'
 import Reveal from './Reveal.jsx'
 import SectionLabel from './SectionLabel.jsx'
 
-export default function Footer({ onOpenResume }) {
+export default function Footer({ onOpenResume, number = '03' }) {
   return (
     <footer className="section footer" id="contact">
       <Reveal>
-        <SectionLabel number="03">contact</SectionLabel>
+        <SectionLabel number={number}>contact</SectionLabel>
       </Reveal>
       <Reveal className="ticket contact-ticket" delay={90}>
         <div className="ticket-main">

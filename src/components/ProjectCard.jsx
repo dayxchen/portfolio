@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 
 // Plays once, muted, when the card is mostly in view, then rests on its last frame with a replay button.
 // With "reduce motion" on (or if the browser blocks playback) it shows the poster and a play button instead.
-function CardVideo({ src, poster, title }) {
+export function CardVideo({ src, poster, title }) {
   const ref = useRef(null)
   const [status, setStatus] = useState(() =>
     window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'paused' : 'waiting'
@@ -62,9 +62,9 @@ function CardVideo({ src, poster, title }) {
 
 // Styled like a boarding pass: main section, perforation, then a stub with the links.
 export default function ProjectCard({ project }) {
-  const { title, date, kind, image, video, poster, description, points, tags, links } = project
+  const { id, title, date, kind, image, video, poster, description, points, tags, links, details } = project
   return (
-    <article className="ticket card">
+    <article className="ticket card" id={id}>
       <div className="ticket-main">
         {video ? (
           <CardVideo src={video} poster={poster} title={title} />
@@ -101,6 +101,11 @@ export default function ProjectCard({ project }) {
         </div>
       </div>
       <div className="ticket-stub card-links">
+        {details && (
+          <a href={details} className="card-details">
+            Details <span aria-hidden="true">→</span>
+          </a>
+        )}
         {links.map((l) => (
           <a key={l.href} href={l.href} target="_blank" rel="noreferrer">
             {l.label} <span aria-hidden="true">→</span>

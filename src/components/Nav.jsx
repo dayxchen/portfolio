@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 
-export default function Nav({ onOpenResume }) {
+// `home` is '' on the home page; on other pages it's the home page's URL, so the links jump back there.
+export default function Nav({ onOpenResume, home = '' }) {
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
@@ -13,10 +14,10 @@ export default function Nav({ onOpenResume }) {
   return (
     <nav className={`nav ${scrolled ? 'is-scrolled' : ''}`}>
       <div className="nav-inner">
-        <a href="#top" className="nav-name">davin chen</a>
+        <a href={home || '#top'} className="nav-name">davin chen</a>
         <div className="nav-links">
-          <a href="#projects">projects</a>
-          <a href="#about">about</a>
+          <a href={`${home}#projects`}>projects</a>
+          <a href={`${home}#about`}>about</a>
           <button type="button" className="nav-resume" onClick={onOpenResume}>resume</button>
         </div>
       </div>
